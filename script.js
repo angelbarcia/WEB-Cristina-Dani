@@ -138,3 +138,46 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 });
+
+// Navegación móvil mejorada
+const hamburger = document.querySelector(".hamburger");
+const navMenu = document.querySelector("nav ul");
+
+if (hamburger) {
+  hamburger.addEventListener("click", function () {
+    this.classList.toggle("active");
+    navMenu.classList.toggle("show");
+  });
+
+  // Cerrar menú al hacer clic en un enlace
+  document.querySelectorAll("nav ul li a").forEach((link) => {
+    link.addEventListener("click", () => {
+      hamburger.classList.remove("active");
+      navMenu.classList.remove("show");
+    });
+  });
+
+  // Cerrar menú al hacer clic fuera
+  document.addEventListener("click", (e) => {
+    if (!e.target.closest("nav") && navMenu.classList.contains("show")) {
+      hamburger.classList.remove("active");
+      navMenu.classList.remove("show");
+    }
+  });
+}
+
+// Ajustar altura de la sección hero en dispositivos móviles
+function adjustHeroHeight() {
+  const hero = document.querySelector(".hero");
+  if (window.innerWidth <= 768) {
+    const headerHeight = document.querySelector("header").offsetHeight;
+    hero.style.height = `calc(100vh - ${headerHeight}px)`;
+    hero.style.marginTop = `${headerHeight}px`;
+  } else {
+    hero.style.height = "100vh";
+    hero.style.marginTop = "80px";
+  }
+}
+
+window.addEventListener("load", adjustHeroHeight);
+window.addEventListener("resize", adjustHeroHeight);
