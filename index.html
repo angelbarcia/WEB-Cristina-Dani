@@ -351,7 +351,12 @@
         </div>
 
         <div class="contacto-form">
-          <form id="cita-form">
+          <form id="form" method="POST">
+            <input
+              type="hidden"
+              name="access_key"
+              value="4e9388cd-ccaa-4b1b-8c5e-65fbbee5e107"
+            />
             <div class="form-group">
               <label for="nombre">Nombre completo</label>
               <input type="text" id="nombre" required />
@@ -362,30 +367,43 @@
             </div>
             <div class="form-group">
               <label for="email">Email</label>
-              <input type="email" id="email" />
+              <input type="email" id="email" required />
             </div>
             <div class="form-group">
               <label for="servicio">Servicio de interés</label>
               <select id="servicio">
                 <option value="">Selecciona un servicio</option>
-                <option value="quiromasaje">Quiromasaje</option>
-                <option value="lomi">Masaje Lomi Lomi</option>
-                <option value="champi">Masaje Hindú de Cabeza</option>
-                <option value="ayurveda">Masaje Ayurveda</option>
-                <option value="velas">Masaje con Velas Calientes</option>
-                <option value="reflexologia">Reflexología Podal</option>
-                <option value="bambuterapia">Bambuterapia</option>
-                <option value="chocolaterapia">Chocolaterapia</option>
-                <option value="maderoterapia">Maderoterapia</option>
-                <option value="facial">Tratamientos Faciales</option>
-                <option value="depilacion">Depilación</option>
+                <option value="Quiromasaje">Quiromasaje</option>
+                <option value="Masaje Lomi Lomi">Masaje Lomi Lomi</option>
+                <option value="Masaje Hindú de Cabeza">
+                  Masaje Hindú de Cabeza
+                </option>
+                <option value="Masaje Ayurveda">Masaje Ayurveda</option>
+                <option value="Masaje con Velas Calientes">
+                  Masaje con Velas Calientes
+                </option>
+                <option value="Reflexología Podal">Reflexología Podal</option>
+                <option value="Bambuterapia">Bambuterapia</option>
+                <option value="Chocolaterapia">Chocolaterapia</option>
+                <option value="Maderoterapia">Maderoterapia</option>
+                <option value="Tratamientos Faciales">
+                  Tratamientos Faciales
+                </option>
+                <option value="Depilación">Depilación</option>
               </select>
             </div>
             <div class="form-group">
               <label for="mensaje">Mensaje</label>
               <textarea id="mensaje" rows="4"></textarea>
             </div>
+            <input
+              type="checkbox"
+              name="botcheck"
+              class="hidden"
+              style="display: none"
+            />
             <button type="submit" class="btn">Solicitar Cita</button>
+            <div><p id="result"></p></div>
           </form>
         </div>
       </div>

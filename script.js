@@ -59,10 +59,11 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   // Formulario de contacto
-  const contactForm = document.getElementById("cita-form");
+  const form = document.getElementById("form");
+  const result = document.getElementById("result");
 
-  if (contactForm) {
-    contactForm.addEventListener("submit", function (e) {
+  if (form) {
+    form.addEventListener("submit", function (e) {
       e.preventDefault();
 
       const nombre = document.getElementById("nombre").value;
@@ -71,8 +72,39 @@ document.addEventListener("DOMContentLoaded", function () {
       const servicio = document.getElementById("servicio").value;
       const mensaje = document.getElementById("mensaje").value;
 
-      // Aquí normalmente enviarías los datos a un servidor
-      // Para este ejemplo, solo mostraremos un mensaje de confirmación
+      const formData = new FormData(form);
+      const object = Object.fromEntries(formData);
+      const json = JSON.stringify(object);
+      console.log(json);
+      result.innerHTML = "Please wait...";
+
+      fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: json,
+      })
+        .then(async (response) => {
+          let json = await response.json();
+          if (response.status == 200) {
+            result.innerHTML = "Form submitted successfully";
+          } else {
+            console.log(response);
+            result.innerHTML = json.message;
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+          result.innerHTML = "Something went wrong!";
+        })
+        .then(function () {
+          form.reset();
+          setTimeout(() => {
+            result.style.display = "none";
+          }, 3000);
+        });
 
       alert(
         `¡Gracias ${nombre}! Hemos recibido tu solicitud de cita para ${
@@ -81,7 +113,7 @@ document.addEventListener("DOMContentLoaded", function () {
       );
 
       // Limpiar formulario
-      contactForm.reset();
+      form.reset();
     });
   }
 
