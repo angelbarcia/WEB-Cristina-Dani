@@ -787,3 +787,29 @@ footer {
     display: flex !important;
   }
 }
+
+/* Corregir el menú desplegable móvil */
+@media (max-width: 768px) {
+  /* Eliminar estilos hover que causan conflicto en móviles */
+  nav ul li:hover ul {
+    margin-top: 0;
+  }
+
+  /* Asegurar que el menú desplegable sea visible cuando tenga la clase .show */
+  nav ul.show {
+    display: flex !important;
+    flex-direction: column;
+    width: 100%;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: white;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+  }
+
+  /* Asegurar que los submenús también funcionen */
+  .dropdown-content.show {
+    display: block !important;
+  }
+}

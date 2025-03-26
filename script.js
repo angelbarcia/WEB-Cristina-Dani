@@ -181,3 +181,47 @@ function adjustHeroHeight() {
 
 window.addEventListener("load", adjustHeroHeight);
 window.addEventListener("resize", adjustHeroHeight);
+
+// Corregir menú móvil
+document.addEventListener("DOMContentLoaded", function () {
+  const hamburger = document.querySelector(".hamburger");
+  const navMenu = document.querySelector("nav ul");
+
+  if (hamburger) {
+    hamburger.addEventListener("click", function (e) {
+      e.stopPropagation(); // Evitar que el evento se propague
+      this.classList.toggle("active");
+      navMenu.classList.toggle("show");
+    });
+  }
+
+  // Asegurar que los clics en elementos del menú funcionen
+  document.querySelectorAll("nav ul li a").forEach((link) => {
+    link.addEventListener("click", function (e) {
+      // Si tiene submenú, toggle la clase show
+      const subMenu = this.nextElementSibling;
+      if (subMenu && subMenu.classList.contains("dropdown-content")) {
+        e.preventDefault(); // Prevenir navegación
+        e.stopPropagation(); // Evitar cierre del menú principal
+        subMenu.classList.toggle("show");
+      } else if (window.innerWidth <= 768) {
+        // Si no tiene submenú y estamos en móvil, cerrar el menú
+        hamburger.classList.remove("active");
+        navMenu.classList.remove("show");
+      }
+    });
+  });
+
+  // Cerrar menú al hacer clic fuera
+  document.addEventListener("click", function (e) {
+    if (!e.target.closest("nav") && navMenu.classList.contains("show")) {
+      hamburger.classList.remove("active");
+      navMenu.classList.remove("show");
+
+      // También cerrar submenús abiertos
+      document.querySelectorAll(".dropdown-content.show").forEach((menu) => {
+        menu.classList.remove("show");
+      });
+    }
+  });
+});
